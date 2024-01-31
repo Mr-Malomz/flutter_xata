@@ -163,7 +163,7 @@ class _DetailState extends State<Detail> {
                         MaterialStateProperty.all<Color>(Colors.black),
                   ),
                   child: const Text(
-                    'Update contact',
+                    'Update project',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

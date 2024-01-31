@@ -164,7 +164,7 @@ class _CreateState extends State<Create> {
                         MaterialStateProperty.all<Color>(Colors.black),
                   ),
                   child: const Text(
-                    'Create contact',
+                    'Create project',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

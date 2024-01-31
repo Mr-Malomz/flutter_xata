@@ -56,6 +56,14 @@ class _HomeState extends State<Home> {
                               color: Colors.black, fontWeight: FontWeight.w800),
                         ),
                         const SizedBox(height: 10.0),
+                        Row(
+                          children: [
+                            Icon(Icons.start),
+                            const SizedBox(width: 5.0),
+                            Text("Started")
+                          ],
+                        ),
+                        const SizedBox(height: 10.0),
                         Text("Project description")
                       ],
                     ),
