@@ -73,7 +73,7 @@ class _CreateState extends State<Create> {
                       ),
                       const SizedBox(height: 30.0),
                       const Text(
-                        'Data type',
+                        'Status',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14.0,
@@ -93,7 +93,7 @@ class _CreateState extends State<Create> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
-                          hintText: "select data type",
+                          hintText: "select status",
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(color: Colors.grey),
@@ -120,7 +120,7 @@ class _CreateState extends State<Create> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please input ydescription';
+                            return 'Please input description';
                           }
                           return null;
                         },
