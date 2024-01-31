@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
           );
         },
         backgroundColor: Colors.black,
-        tooltip: 'Create contact',
+        tooltip: 'Create project',
         child: const Icon(
           Icons.add,
           color: Colors.white,
