@@ -118,7 +118,7 @@ class _DetailState extends State<Detail> {
         : _isError
             ? const Center(
                 child: Text(
-                  'Error getting phone contacts',
+                  'Error getting project',
                   style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,

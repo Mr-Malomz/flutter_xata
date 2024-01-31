@@ -3,19 +3,19 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_xata/utils.dart';
 
 class XataService {
-  final dio = Dio();
+  final _dio = Dio();
   static String _apiKey = dotenv.get("XATA_API_KEY");
   static String _baseURL = dotenv.get("XATA_DATABASE_URL");
 
-  var headers = {
+  final _headers = {
     "content-type": "application/json",
     "AUTHORIZATION": "Bearer $_apiKey",
   };
 
   Future<List<Project>> getProjects() async {
-    var response = await dio.post(
+    var response = await _dio.post(
       "$_baseURL:main/tables/Project/query",
-      options: Options(headers: headers),
+      options: Options(headers: _headers),
     );
 
     if (response.statusCode == 200) {
@@ -28,24 +28,24 @@ class XataService {
   }
 
   Future<Project> getSingleProject(String id) async {
-    var response = await dio.get(
+    var response = await _dio.get(
       "$_baseURL:main/tables/Project/data/$id",
-      options: Options(headers: headers),
+      options: Options(headers: _headers),
     );
 
     if (response.statusCode == 200) {
       var resp = response.data;
-      var contact = Project.fromJson(resp);
-      return contact;
+      var project = Project.fromJson(resp);
+      return project;
     } else {
       throw Exception('Error getting project');
     }
   }
 
   Future createProject(Project newProject) async {
-    var response = await dio.post(
+    var response = await _dio.post(
       "$_baseURL:main/tables/Project/data",
-      options: Options(headers: headers),
+      options: Options(headers: _headers),
       data: newProject.toJson(),
     );
 
@@ -57,9 +57,9 @@ class XataService {
   }
 
   Future updateProject(String id, Project updatedProject) async {
-    var response = await dio.put(
+    var response = await _dio.put(
       "$_baseURL:main/tables/Project/data/$id",
-      options: Options(headers: headers),
+      options: Options(headers: _headers),
       data: updatedProject.toJson(),
     );
 
@@ -71,9 +71,9 @@ class XataService {
   }
 
   Future deleteProject(String id) async {
-    var response = await dio.delete(
+    var response = await _dio.delete(
       "$_baseURL:main/tables/Project/data/$id",
-      options: Options(headers: headers),
+      options: Options(headers: _headers),
     );
 
     if (response.statusCode == 204) {

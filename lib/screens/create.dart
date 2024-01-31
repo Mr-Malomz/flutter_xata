@@ -36,7 +36,7 @@ class _CreateState extends State<Create> {
         _isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Contact created successfully!')),
+        const SnackBar(content: Text('Project created successfully!')),
       );
       Navigator.push(
         context,

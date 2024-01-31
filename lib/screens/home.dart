@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xata/screens/create.dart';
 import 'package:flutter_xata/screens/detail.dart';
-import 'package:flutter_xata/utils.dart';
+import 'package:flutter_xata/utils.dart'; 
 import 'package:flutter_xata/xata_service.dart';
 
 class Home extends StatefulWidget {
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                     );
                   },
                   backgroundColor: Colors.black,
-                  tooltip: 'Create contact',
+                  tooltip: 'Create project',
                   child: const Icon(
                     Icons.add,
                     color: Colors.white,
