@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_xata/screens/home.dart';
+import 'package:flutter_xata/utils.dart';
+import 'package:flutter_xata/xata_service.dart';
 
 class Create extends StatefulWidget {
   const Create({
@@ -13,6 +16,41 @@ class _CreateState extends State<Create> {
   final _formKey = GlobalKey<FormState>();
   var _selected = '';
   var _dropdownItems = ["Started", "Not_Started"];
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _description = TextEditingController();
+  bool _isLoading = false;
+
+  createProject() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    Project newProject = Project(
+      name: _name.text,
+      description: _description.text,
+      status: _selected,
+    );
+
+    XataService().createProject(newProject).then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Contact created successfully!')),
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Home()),
+      );
+    }).catchError((onError) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error creating project!')),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +82,7 @@ class _CreateState extends State<Create> {
                       ),
                       const SizedBox(height: 5.0),
                       TextFormField(
+                        controller: _name,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please input name';
@@ -73,7 +112,7 @@ class _CreateState extends State<Create> {
                       ),
                       const SizedBox(height: 30.0),
                       const Text(
-                        'Data type',
+                        'Status',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14.0,
@@ -93,7 +132,7 @@ class _CreateState extends State<Create> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
-                          hintText: "select data type",
+                          hintText: "select status",
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(color: Colors.grey),
@@ -118,6 +157,7 @@ class _CreateState extends State<Create> {
                       ),
                       const SizedBox(height: 5.0),
                       TextFormField(
+                        controller: _description,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please input ydescription';
@@ -154,17 +194,19 @@ class _CreateState extends State<Create> {
                 height: 45,
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      //todo
-                    }
-                  },
+                  onPressed: _isLoading
+                      ? null
+                      : () {
+                          if (_formKey.currentState!.validate()) {
+                            createProject();
+                          }
+                        },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
                   ),
                   child: const Text(
-                    'Create contact',
+                    'Create project',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
